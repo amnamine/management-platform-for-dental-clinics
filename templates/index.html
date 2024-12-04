@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dental Clinic Platform</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-<script src="{{ url_for('static', filename='script.js') }}" defer></script>
-
-    <script src="script.js" defer></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 <body>
     <header>
@@ -19,7 +17,7 @@
     </header>
     <main>
         <section>
-            <h2>Manage Stock</h2>
+            <h2>Stock Management</h2>
             <form action="/add_stock" method="POST">
                 <label for="product_name">Product Name:</label>
                 <input type="text" id="product_name" name="product_name" required>
@@ -27,31 +25,35 @@
                 <input type="number" id="quantity" name="quantity" required>
                 <label for="expiration_date">Expiration Date:</label>
                 <input type="date" id="expiration_date" name="expiration_date">
-                <button type="submit">Add to Stock</button>
+                <button type="submit">Add Stock</button>
             </form>
         </section>
 
-        {% if stock_items %}
         <section>
-            <h2>Stock Items</h2>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Expiration Date</th>
-                </tr>
-                {% for item in stock_items %}
-                <tr>
-                    <td>{{ item[0] }}</td>
-                    <td>{{ item[1] }}</td>
-                    <td>{{ item[2] }}</td>
-                    <td>{{ item[3] }}</td>
-                </tr>
-                {% endfor %}
-            </table>
+            <h2>Alerts</h2>
+            {% if alerts %}
+                <ul>
+                    {% for alert in alerts %}
+                        <li>{{ alert }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No alerts at the moment.</p>
+            {% endif %}
         </section>
-        {% endif %}
+
+        <section>
+            <h2>Prosthesis Management</h2>
+            <form action="/add_prosthesis" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="provider">Provider:</label>
+                <input type="text" id="provider" name="provider" required>
+                <label for="payment_status">Payment Status:</label>
+                <input type="text" id="payment_status" name="payment_status">
+                <button type="submit">Add Prosthesis</button>
+            </form>
+        </section>
     </main>
 </body>
 </html>
